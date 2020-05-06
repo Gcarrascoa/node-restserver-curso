@@ -23,7 +23,7 @@ app.get('/usuario', function(req, res) {
     desde = Number(desde);
     //  /usuario?desde=10&limite=10
     let limite = req.query.limite || 5;
-    limite = numer(limite)
+    limite = Number(limite)
 
     Usuario.find({ estado: true }, 'nombre email role estado google img')
         //como primer parametro, podemos darle una condicion a cumplir    
