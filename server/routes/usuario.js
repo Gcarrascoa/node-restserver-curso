@@ -11,6 +11,12 @@ const app = express();
 // ==    GET USUARIO    ==
 // =======================
 
+app.get('', function(req, res) {
+    res.json({
+        datos: "Server activo"
+    })
+})
+
 app.get('/usuario', function(req, res) {
     //  /usuario?desde=10   , forma de mandar parametros opcionales
     let desde = req.query.desde || 0;

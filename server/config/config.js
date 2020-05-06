@@ -20,4 +20,4 @@ if (process.env.NODE_ENV === 'dev') {
 } else {
     urlDB = 'mongodb+srv://giocloud:pjs2jJprajb5PIGS@cluster0-3tvoe.mongodb.net/cafe';
 }
-process.env.URLDB = urlDB
+process.env.URLDB = urlDB;
