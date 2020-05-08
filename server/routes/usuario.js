@@ -3,8 +3,10 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore'); //para filtrar datos que quiera mostrar
 
 const Usuario = require('../models/usuario');
+const { verificarToken, verficarAdmin_role } = require('../middlewares/autenticacion')
 
 const app = express();
+
 
 
 // =======================
@@ -17,7 +19,7 @@ app.get('', function(req, res) {
     })
 })
 
-app.get('/usuario', function(req, res) {
+app.get('/usuario', verificarToken, function(req, res) {
     //  /usuario?desde=10   , forma de mandar parametros opcionales
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -83,7 +85,7 @@ app.post('/usuario', function(req, res) {
 // =======================
 //actualizar registros
 // http://localhost:3000/usuario/12345
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [verificarToken, verficarAdmin_role], function(req, res) {
     let id = req.params.id; //con el id , buscaremos en la BD
     let opcionesValidar = ['nombre', 'email', 'img', 'role', 'estado']
     let body = _.pick(req.body, opcionesValidar); //con el body actualizaremos los datos
@@ -110,7 +112,7 @@ app.put('/usuario/:id', function(req, res) {
 // =======================
 
 //borrar (actualmente solamente cambiar estados)
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verificarToken, verficarAdmin_role], function(req, res) {
     let id = req.params.id;
 
     let cambiaEstado = {
