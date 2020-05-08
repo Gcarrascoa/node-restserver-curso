@@ -53,7 +53,7 @@ app.get('/usuario', verificarToken, function(req, res) {
 // ==   POST USUARIO    ==
 // =======================
 //crear nuevos registros
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verificarToken, verficarAdmin_role], function(req, res) {
 
     let body = req.body; // require('body-parser')
 
